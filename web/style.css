@@ -3,10 +3,19 @@ h1 {
     text-align: center;
 }
 
+a {
+    text-decoration: none;
+}
+
+p {
+    text-align: center;
+    font-family: Courier;
+    color: #9900cc;
+}
 #map {
     align-content: center;
-    height: 1000px;
-    width: 1000px;
+    height: 750px;
+    width: 750px;
     margin-left: auto;
     margin-right: auto;
 }
