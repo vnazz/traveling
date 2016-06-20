@@ -3,36 +3,36 @@ from collections import defaultdict
 import copy
 import math
 
-cities = {"New York City": {"lat": 40.7128, "lng": 74.0059},
-          "Los Angeles": {"lat": 34.0522, "lng": 118.2437},
-          "Chicago": {"lat": 41.8781, "lng": 87.6298},
-          "Houston": {"lat": 29.7604, "lng": 95.3698},
-          "Philadelphia": {"lat": 39.9526, "lng": 75.1652},
-          "Phoenix": {"lat": 33.4484, "lng": 112.0740},
-          "San Antonio": {"lat": 29.4241, "lng": 98.4936},
-          "San Diego": {"lat": 32.7157, "lng": 117.1611},
-          "Dallas": {"lat": 32.7767, "lng": 96.7970},
-          "San Jose": {"lat": 37.3382, "lng": 121.8863},
-          "Austin": {"lat": 30.2672, "lng": 97.7431},
-          "Jacksonville": {"lat": 30.3322, "lng": 81.6557},
-          "Indianapolis": {"lat": 39.7684, "lng": 86.1581},
-          "San Francisco": {"lat": 37.7749, "lng": 122.4194}
-    ,     "Columbus": {"lat": 39.9612, "lng": 82.9988},
-          "Fort Worth": {"lat": 32.7555, "lng": 97.3308},
-          "Charlotte": {"lat": 35.2271, "lng": 80.8431},
-          "Detroit": {"lat": 42.3314, "lng": 83.0458},
-          "El Paso": {"lat": 31.7619, "lng": 106.4850},
-          "Memphis": {"lat": 35.1495, "lng": 90.0490},
-          "Boston": {"lat": 42.3601, "lng": 71.0589},
-          "Seattle": {"lat": 47.6062, "lng": 122.3321},
-          "Denver": {"lat": 39.7392, "lng": 104.9903},
-          "Washington D.C": {"lat": 38.9072, "lng": 77.0369},
-          "Nashville": {"lat": 36.1627, "lng": 86.7816},
-          "Baltimore": {"lat": 39.2904, "lng": 76.6122},
-          "Louisville": {"lat": 38.2527, "lng": 85.7585},
-          "Portland": {"lat": 45.5231, "lng": 122.6765},
-          "Oklahoma City": {"lat": 35.0078, "lng": 97.0929},
-          "Milwaukee": {"lat": 43.0389, "lng": 87.9065}}
+cities = {"New York City": {"lat": 40.7128, "lng": -74.0059},
+          "Los Angeles": {"lat": 34.0522, "lng": -118.2437},
+          "Chicago": {"lat": 41.8781, "lng": -87.6298},
+          "Houston": {"lat": 29.7604, "lng": -95.3698},
+          "Philadelphia": {"lat": 39.9526, "lng": -75.1652},
+          "Phoenix": {"lat": 33.4484, "lng": -112.0740},
+          "San Antonio": {"lat": 29.4241, "lng": -98.4936},
+          "San Diego": {"lat": 32.7157, "lng": -117.1611},
+          "Dallas": {"lat": 32.7767, "lng": -96.7970},
+          "San Jose": {"lat": 37.3382, "lng": -121.8863},
+          "Austin": {"lat": 30.2672, "lng": -97.7431},
+          "Jacksonville": {"lat": 30.3322, "lng": -81.6557},
+          "Indianapolis": {"lat": 39.7684, "lng": -86.1581},
+          "San Francisco": {"lat": 37.7749, "lng": -122.4194}
+    ,     "Columbus": {"lat": 39.9612, "lng": -82.9988},
+          "Fort Worth": {"lat": 32.7555, "lng": -97.3308},
+          "Charlotte": {"lat": 35.2271, "lng": -80.8431},
+          "Detroit": {"lat": 42.3314, "lng": -83.0458},
+          "El Paso": {"lat": 31.7619, "lng": -106.4850},
+          "Memphis": {"lat": 35.1495, "lng": -90.0490},
+          "Boston": {"lat": 42.3601, "lng": -71.0589},
+          "Seattle": {"lat": 47.6062, "lng": -122.3321},
+          "Denver": {"lat": 39.7392, "lng": -104.9903},
+          "Washington D.C": {"lat": 38.9072, "lng": -77.0369},
+          "Nashville": {"lat": 36.1627, "lng": -86.7816},
+          "Baltimore": {"lat": 39.2904, "lng": -76.6122},
+          "Louisville": {"lat": 38.2527, "lng": -85.7585},
+          "Portland": {"lat": 45.5231, "lng": -122.6765},
+          "Oklahoma City": {"lat": 35.0078, "lng": -97.0929},
+          "Milwaukee": {"lat": 43.0389, "lng": -87.9065}}
 
 paths = []
 
@@ -228,16 +228,9 @@ def findOptima(scores):
     topPath = scores[topScore]
     return (topScore, topPath)
 
-
-def makeListOfCoordinates(path):
-    list = []
-    for city in path:
-        list.append(cities[city])
-    print list
-
 def main():
     """
-    Makes 10,000 generations and prints out the path(s) with the lowest distance.
+    Makes 10,000 generations and prints out the path(s) with the lowest distance of the final generation.
     :return: None
     """
     initialize()
@@ -249,6 +242,5 @@ def main():
     else:
         print ("The optimal paths are {} with a score of {}".format(optimalPath, optimalScore))
 
-makeListOfCoordinates(['Denver', 'San Diego', 'El Paso', 'Houston', 'Fort Worth', 'San Antonio', 'Austin', 'Dallas', 'Oklahoma City', 'Memphis', 'Indianapolis', 'Columbus', 'Baltimore', 'Washington D.C', 'Boston', 'New York City', 'Philadelphia', 'Louisville', 'Chicago', 'Milwaukee', 'Detroit', 'Nashville', 'Charlotte', 'Jacksonville', 'Phoenix', 'Los Angeles', 'San Jose', 'Portland', 'Seattle', 'San Francisco'])
 # The optimal path is ['Denver', 'San Diego', 'El Paso', 'Houston', 'Fort Worth', 'San Antonio', 'Austin', 'Dallas', 'Oklahoma City', 'Memphis', 'Indianapolis', 'Columbus', 'Baltimore', 'Washington D.C', 'Boston', 'New York City', 'Philadelphia', 'Louisville', 'Chicago', 'Milwaukee', 'Detroit', 'Nashville', 'Charlotte', 'Jacksonville', 'Phoenix', 'Los Angeles', 'San Jose', 'Portland', 'Seattle', 'San Francisco'] with a score of 11198.849526
 
