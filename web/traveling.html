@@ -15,22 +15,48 @@
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 3,
-          center: {lat: 0, lng: -180},
+          center: {lat: 39.8282, lng: -98.5795},
           mapTypeId: google.maps.MapTypeId.TERRAIN
         });
 
         var flightPlanCoordinates = [
-          {lat: 37.772, lng: -122.214},
-          {lat: 21.291, lng: -157.821},
-          {lat: -18.142, lng: 178.431},
-          {lat: -27.467, lng: 153.027}
-        ];
+            {lat: 39.7392, lng: -104.9903},
+            {lat: 32.7157, lng: -117.1611},
+            {lat: 31.7619, lng: -106.485},
+            {lat: 29.7604, lng: -95.3698},
+            {lat: 32.7555, lng: -97.3308},
+            {lat: 29.4241, lng: -98.4936},
+            {lat: 30.2672, lng: -97.7431},
+            {lat: 32.7767, lng: -96.797},
+            {lat: 35.0078, lng: -97.0929},
+            {lat: 35.1495, lng: -90.049},
+            {lat: 39.7684, lng: -86.1581},
+            {lat: 39.9612, lng: -82.9988},
+            {lat: 39.2904, lng: -76.6122},
+            {lat: 38.9072, lng: -77.0369},
+            {lat: 42.3601, lng: -71.0589},
+            {lat: 40.7128, lng: -74.0059},
+            {lat: 39.9526, lng: -75.1652},
+            {lat: 38.2527, lng: -85.7585},
+            {lat: 41.8781, lng: -87.6298},
+            {lat: 43.0389, lng: -87.9065},
+            {lat: 42.3314, lng: -83.0458},
+            {lat: 36.1627, lng: -86.7816},
+            {lat: 35.2271, lng: -80.8431},
+            {lat: 30.3322, lng: -81.6557},
+            {lat: 33.4484, lng: -112.074},
+            {lat: 34.0522, lng: -118.2437},
+            {lat: 37.3382, lng: -121.8863},
+            {lat: 45.5231, lng: -122.6765},
+            {lat: 47.6062, lng: -122.3321},
+            {lat: 37.7749, lng: -122.4194}]
+
         var flightPath = new google.maps.Polyline({
           path: flightPlanCoordinates,
           geodesic: true,
           strokeColor: '#9900cc',
           strokeOpacity: 1.0,
-          strokeWeight: 3
+          strokeWeight: 1
         });
 
         flightPath.setMap(map);
