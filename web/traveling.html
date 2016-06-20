@@ -10,14 +10,15 @@
 </head>
 <body>
     <h1>Genetic Algorithm for the Traveling Salesman Problem</h1>
-    <p>The map below displays a path between the 30 most populous cities in the United States. This path was found
+    <p>The map below displays a path between the 30 most populous cities in the United States. The optimal path found was Denver, San Diego, El Paso, Houston, Fort Worth, San Antonio, Austin, Dallas, Oklahoma City, Memphis, Indianapolis, Columbus, Baltimore, Washington D.C, Boston, New York City, Philadelphia, Louisville, Chicago, Milwaukee, Detroit, Nashville, Charlotte, Jacksonville, Phoenix, Los Angeles, San Jose, Portland, Seattle, and San Francisco. It is 11198.849526 miles long.
+        This path was found
     using a genetic algorithm. The code for this algorithm can be found
         <a href="https://github.com/vrnaz/traveling" target="_blank">here</a>.</p>
     <div id="map"></div>
     <script>
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 3,
+          zoom: 4,
           center: {lat: 39.8282, lng: -98.5795},
           mapTypeId: google.maps.MapTypeId.TERRAIN
         });
