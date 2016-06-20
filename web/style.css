@@ -2,3 +2,11 @@ h1 {
     color: lightskyblue;
     text-align: center;
 }
+
+#map {
+    align-content: center;
+    height: 1000px;
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
