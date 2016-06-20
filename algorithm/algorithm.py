@@ -3,34 +3,47 @@ from collections import defaultdict
 import copy
 import math
 
-cities = {"New York City": {"lat": 40.7128, "long": 74.0059}, "Los Angeles": {"lat": 34.0522, "long": 118.2437},
-          "Chicago": {"lat": 41.8781, "long": 87.6298}, "Houston": {"lat": 29.7604, "long": 95.3698},
+cities = {"New York City": {"lat": 40.7128, "long": 74.0059},
+          "Los Angeles": {"lat": 34.0522, "long": 118.2437},
+          "Chicago": {"lat": 41.8781, "long": 87.6298},
+          "Houston": {"lat": 29.7604, "long": 95.3698},
           "Philadelphia": {"lat": 39.9526, "long": 75.1652},
-          "Phoenix": {"lat": 33.4484, "long": 112.0740}, "San Antonio": {"lat": 29.4241, "long": 98.4936},
+          "Phoenix": {"lat": 33.4484, "long": 112.0740},
+          "San Antonio": {"lat": 29.4241, "long": 98.4936},
           "San Diego": {"lat": 32.7157, "long": 117.1611},
-          "Dallas": {"lat": 32.7767, "long": 96.7970}, "San Jose": {"lat": 37.3382, "long": 121.8863},
+          "Dallas": {"lat": 32.7767, "long": 96.7970},
+          "San Jose": {"lat": 37.3382, "long": 121.8863},
           "Austin": {"lat": 30.2672, "long": 97.7431},
-          "Jacksonville": {"lat": 30.3322, "long": 81.6557}, "Indianapolis": {"lat": 39.7684, "long": 86.1581},
+          "Jacksonville": {"lat": 30.3322, "long": 81.6557},
+          "Indianapolis": {"lat": 39.7684, "long": 86.1581},
           "San Francisco": {"lat": 37.7749, "long": 122.4194}
-    , "Columbus": {"lat": 39.9612, "long": 82.9988}, "Fort Worth": {"lat": 32.7555, "long": 97.3308},
+    ,     "Columbus": {"lat": 39.9612, "long": 82.9988},
+          "Fort Worth": {"lat": 32.7555, "long": 97.3308},
           "Charlotte": {"lat": 35.2271, "long": 80.8431},
-          "Detroit": {"lat": 42.3314, "long": 83.0458}, "El Paso": {"lat": 31.7619, "long": 106.4850},
+          "Detroit": {"lat": 42.3314, "long": 83.0458},
+          "El Paso": {"lat": 31.7619, "long": 106.4850},
           "Memphis": {"lat": 35.1495, "long": 90.0490},
-          "Boston": {"lat": 42.3601, "long": 71.0589}, "Seattle": {"lat": 47.6062, "long": 122.3321},
+          "Boston": {"lat": 42.3601, "long": 71.0589},
+          "Seattle": {"lat": 47.6062, "long": 122.3321},
           "Denver": {"lat": 39.7392, "long": 104.9903},
-          "Washington D.C": {"lat": 38.9072, "long": 77.0369}, "Nashville": {"lat": 36.1627, "long": 86.7816},
+          "Washington D.C": {"lat": 38.9072, "long": 77.0369},
+          "Nashville": {"lat": 36.1627, "long": 86.7816},
           "Baltimore": {"lat": 39.2904, "long": 76.6122},
-          "Louisville": {"lat": 38.2527, "long": 85.7585}, "Portland": {"lat": 45.5231, "long": 122.6765},
+          "Louisville": {"lat": 38.2527, "long": 85.7585},
+          "Portland": {"lat": 45.5231, "long": 122.6765},
           "Oklahoma City": {"lat": 35.0078, "long": 97.0929},
           "Milwaukee": {"lat": 43.0389, "long": 87.9065}}
 
 paths = []
-optimal = []
-optimalScore = float("inf")
 
-
-# This function is based on http://andrew.hedges.name/experiments/haversine/
 def calculateDistanceBetweenTwo(city1, city2):
+    """
+    This function is based on http://andrew.hedges.name/experiments/haversine/
+    It uses the latitude and longitude of two locations to find the distance between them.
+    :param city1: The first dictionary entry with longitude and latitude
+    :param city2: The second dictionary entry with longitude and latitude
+    :return: The distance between city1 and city2
+    """
     longs = math.radians(cities[city2]["long"] - cities[city1]["long"])
     lats = math.radians(cities[city2]["lat"] - cities[city1]["lat"])
     lat1 = math.radians(cities[city1]["lat"])
@@ -39,10 +52,15 @@ def calculateDistanceBetweenTwo(city1, city2):
     a = math.sin(lats / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(longs / 2) ** 2
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     distance = 3961 * c
+
     return distance
 
 
 def initialize():
+    """
+    Creates 500 random paths that include the 30 most populous cities in the US.
+    :return: None
+    """
     i = 0;
     while i < 500:
         path = []
@@ -52,10 +70,16 @@ def initialize():
                 path.append(choice)
         paths.append(path)
         i += 1;
-    return
 
 
 def scorePortion(path, start, end):
+    """
+    Scores a portion of a path.
+    :param path: The path that will have a portion scored
+    :param start: The index of the first entry that will be scored
+    :param end: The index of the last entry that will be scored
+    :return: The score of the portion of path starting at start and including end
+    """
     score = 0
     for i in range(start, end):
         score += calculateDistanceBetweenTwo(path[i], path[i + 1])
@@ -63,6 +87,11 @@ def scorePortion(path, start, end):
 
 
 def score(path):
+    """
+    Scores the entire path.
+    :param path: the path that will be scored
+    :return: the distance of the path that was given
+    """
     score = 0;
     for i in range(len(path) - 1):
         score += calculateDistanceBetweenTwo(path[i], path[i + 1])
@@ -70,12 +99,21 @@ def score(path):
 
 
 def scoreAll(paths):
+    """
+    Scores all the paths given.
+    :param paths: The paths that will be scored
+    :return: A dictionary with distances as keys and paths as values
+    """
     scores = defaultdict(list)
     for path in paths:
         scores[score(path)].append(path)
     return scores
 
 def createNextGen():
+    """
+    Creates a new generation by randomly choosing two paths and crossing them.
+    :return: A new list of paths based on the current generation of paths
+    """
     availParents = []
     j = 0
     while j < 2:
@@ -94,6 +132,15 @@ def createNextGen():
 
 
 def createChild(parent1, parent2):
+    """
+    Creates a child given two parents by picking a range of indices and
+    picking the parent with the lowest distance in the range. Then the other
+    parent's cities that were not in the range are taken in order to create
+    the child.
+    :param parent1: A path of cities
+    :param parent2: Another path of cities
+    :return: A child based on the algorithm described above
+    """
     start = random.randint(0, len(parent1) / 4)
     score1 = scorePortion(parent1, start, len(parent1) / 2 + 1)
     score2 = scorePortion(parent2, start, len(parent2) / 2 + 1)
@@ -104,7 +151,6 @@ def createChild(parent1, parent2):
     else:
         optimalSection = parent2[start: len(parent2) / 2 + 2]
         remainingCities = getRemainingCities(optimalSection, parent1)
-
         child = insertCities(start, optimalSection, remainingCities)
 
     child = mutation(child)
@@ -112,6 +158,12 @@ def createChild(parent1, parent2):
 
 
 def getRemainingCities(section, otherParent):
+    """
+    Generates a list of cities that are not in section.
+    :param section: A list of cities
+    :param otherParent: A list of cities
+    :return: A list of the cities not in section but are in otherParent
+    """
     remaining = []
     for i in range(len(otherParent)):
         if otherParent[i] not in section:
@@ -121,6 +173,13 @@ def getRemainingCities(section, otherParent):
 
 
 def insertCities(start, section, remainingCities):
+    """
+    Inserts "remainingCities" around the section that was given.
+    :param start: The starting point of section
+    :param section: A list of cities
+    :param remainingCities: A list of cities that are not in section
+    :return: A child that has all 30 cities and contains section and remainingCities
+    """
     child = []
     i = 0
     while i < start:
@@ -133,6 +192,11 @@ def insertCities(start, section, remainingCities):
     return child
 
 def mutation(child):
+    """
+    There is a 10% chance of mutation. A mutation swaps the order of two cities.
+    :param child: A list of cities that may be mutated
+    :return: A list of cities that might have been changed
+    """
     mutation = random.random()
     if mutation < 0.10:
         position = random.randint(0, len(child) - 2)
@@ -143,34 +207,41 @@ def mutation(child):
 
 
 def runsimulation(times):
+    """
+    Makes "times" generations of paths.
+    :param times: The number of generations that will be made
+    :return: None
+    """
     global paths
-    global optimalScore
-    global optimalPath
     for i in range(times):
         nextGen = createNextGen()
         paths = copy.deepcopy(nextGen)
-    return
 
 
 def findOptima(scores):
+    """
+    Finds the path(s) with the lowest score.
+    :param scores: A dictionary that contains all the paths and their scores
+    :return: A tuples of the lowest score and the path associated with it
+    """
     topScore = min(scores)
     topPath = scores[topScore]
-    if optimalScore < topScore:
-        return (optimalScore, optimalPath)
-    else:
-        return (topScore, topPath)
+    return (topScore, topPath)
 
 
 def main():
+    """
+    Makes 10,000 generations and prints out the path(s) with the lowest distance.
+    :return: None
+    """
     initialize()
-    runsimulation(1000)
+    runsimulation(10000)
     scores = scoreAll(paths)
     optimalScore, optimalPath = findOptima(scores)
     if len(optimalPath) is 1:
         print ("The optimal path is {} with a score of {}".format(optimalPath[0], optimalScore))
     else:
         print ("The optimal paths are {} with a score of {}".format(optimalPath, optimalScore))
-    return
 
 main()
 
